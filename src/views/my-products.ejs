@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs", { title : 'Mis cursos'})  %> 
+<body>
+    <%- include("partials/header.ejs")  %>
+
+    <div class="my-products card">
+        <h3 class="card-header">Mis cursos (0)</h3>
+        <div class="card-body">
+          <h5 class="card-title">qqqqq</h5>
+
+          <!-- si no tiene cursos -->
+          <p class="card-text">Tu carrito está vacio</p>
+          <p>mira nuestros cursos en oferta y empeza a aprender ya!</p>
+          <a href="/products" class="btn btn-primary">Ofertas</a>
+        </div>
+    </div>
+
+    <div class="cursos-card d-flex">
+        <div class="col-md-10 d-block justify-arround card">
+            <h4 class="card-header">nombre de curso</h4>
+            <div class="card-body">
+                <h5 class="card-title">duracion: </h5>
+                <p class="card-text">descripcion de curso.</p>
+                <a href="#" class="btn btn-primary">comenzar curzo</a>
+            </div>           
+        </div>
+        <div class="col-md-2 d-block justify-arround">
+            <img class="img-my-product" src="../img/CODELAB LOGO.png" alt="image curso">
+        </div>
+        
+    </div>
+
+<%- include("partials/footer.ejs")  %>
+<%- include("partials/scripts.ejs")  %> 
+</body>
+</html>

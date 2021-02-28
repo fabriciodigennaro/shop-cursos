@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', {title: 'Formulario de creación'}) %>
+<body>
+	<!-- Header -->
+	<%- include("partials/header.ejs")  %>
+	<!-- /Header -->
+
+	<main class="container products-wrapper">
+		<div class="row">
+			<div class="new-course col-12">
+				<h2 class="products-title">Crear nuevo curso</h2>
+			</div>
+		</div>
+		<div class="col-12">
+			<form action="/products/create" method="POST" enctype="multipart/form-data">
+				<div class="form-row">
+				  <div class="form-group col-md-6">
+					<label for="name">Nombre de Curso</label>
+					<input type="text" class="form-control" name="name" id="name"
+					    <% if (typeof data != "undefined") { %>
+                          value="<%= data.name %>"
+                        <% } %>
+                    >
+                       
+                        <% if (typeof errors != 'undefined') { %>
+                          <% for(let error of errors) { %>
+                                <% if (error.param == "name") { %>
+                                  <small class="form-text text-danger">
+                                    <%= error.msg %> 
+                                  </small> 
+                                <% } %>
+                          <% } %>
+                          <% } %> 
+				  </div>
+
+				  <div class="form-group col-md-6">
+					<label for="mentor">Dictado por:</label>
+					<select name="mentor" class="form-control" id="mentor">
+							<% mentors.forEach(mentor => { %>
+								<option value="<%= mentor.id %>"><%= mentor.name + " " + mentor.lastname %>
+								</option>
+							<% }) %>
+						</select>
+				</div>
+				</div>
+				<div class="form-row">	
+				 	<div class="form-group col-md-4">
+						<label for="duration">Duración (en horas)</label>
+						<input type="number" class="form-control" name="duration" id="duration"
+						<% if (typeof data != "undefined") { %>
+							value="<%= data.duration %>"
+						  <% } %>
+					  >
+						 
+						  <% if (typeof errors != 'undefined') { %>
+							<% for(let error of errors) { %>
+								  <% if (error.param == "duration") { %>
+									<small class="form-text text-danger">
+									  <%= error.msg %> 
+									</small> 
+								  <% } %>
+							<% } %>
+							<% } %> 
+					</div>
+					
+				
+					
+					<div class="form-group col-md-4">
+					  <label for="price">Precio</label>
+					  <input type="number" class="form-control" name="price" id="price"
+					  <% if (typeof data != "undefined") { %>
+						value="<%= data.price %>"
+					  <% } %>
+				  >
+					 
+					  <% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+							  <% if (error.param == "price") { %>
+								<small class="form-text text-danger">
+								  <%= error.msg %> 
+								</small> 
+							  <% } %>
+						<% } %>
+						<% } %> 
+					</div>
+
+					<div class="form-group col-md-4">
+					  <label for="discount">Descuento</label>
+					  <input value="0" type="number" min="0", max="100" class="form-control" name="discount" id="discount"
+					  <% if (typeof data != "undefined") { %>
+						value="<%= data.discount %>"
+					  <% } %>
+				  >
+					 
+					  <% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+							  <% if (error.param == "discount") { %>
+								<small class="form-text text-danger">
+								  <%= error.msg %> 
+								</small> 
+							  <% } %>
+						<% } %>
+						<% } %> 
+					</div>
+					
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="category">Categoria</label>
+						<select name="category" id="category" class="form-control" multiple>
+							<% categories.forEach(category => { %>
+								<option value="<%= category.id %>"><%= category.name  %></option>
+							<% }) %>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-12">
+					  <label for="description">Descripcion del curso</label>
+					  <textarea class="form-control" name="description" id="description" rows="6" cols="50" placeholder="..."></textarea
+						<% if (typeof data != "undefined") { %>
+							value="<%= data.description %>"
+						  <% } %>
+					  >
+						 
+						  <% if (typeof errors != 'undefined') { %>
+							<% for(let error of errors) { %>
+								  <% if (error.param == "description") { %>
+									<small class="form-text text-danger">
+									  <%= error.msg %> 
+									</small> 
+								  <% } %>
+							<% } %>
+							<% } %> 
+					</div>
+					<div class="form-group col-md-12">
+						<label for="avatar"
+							>Foto de curso</label
+						>
+						<input
+							type="file"
+							class="form-control-file"
+							name="photo"
+							id="avatar
+							"
+						/>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="col">
+						<% if (typeof message != "undefined") { %>
+							<div>
+							  <small class="form-text text-danger">
+								<%= message %> 
+							  </small>
+							</div> 
+						  <% } %>
+		
+						<button type="submit" class="btn btn-outline-info col-12">Crear curso</button>
+					</div>
+				</div>
+			  </form>
+		</div>
+
+	</main>
+	<!-- /todos los productos -->
+
+	<!-- footer -->
+	<%- include('partials/footer') %>
+	<%- include("partials/scripts.ejs")  %> 
+	<!-- /footer -->
+</body>	
+</html>

@@ -1,2 +1,6 @@
 /node_modules
 .env
+
+# Assets
+/src/public/tmp/uploads/avatar*
+/src/public/img/products/photo*

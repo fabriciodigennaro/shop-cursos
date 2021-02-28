@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <%- include('partials/head', {title: 'Detalle de curso'}) %>
+    <body>
+
+        <%- include("partials/header.ejs")  %>
+    
+
+        
+          <div class=" d-flex justify-content-center"> 
+              <div class="foto-producto card m-3" style="width:70%;">
+                <img src="/img/products/<%= product.images.length ? product.images[0].filename : 'no-image.jpg' %>"  class="card-img prod-img" alt="...">
+                <div class="card-body">
+                    <h1 class="d-flex justify-content-center"><%= product.name %> </h1>
+                  <p class="card-text" data-toggle="tooltip" title="<%= product.description %>"><%= product.description %>. </p>
+                  <h5> Curso dictado por : <%= `${product.mentor.name} ${product.mentor.lastname}`%></h5>
+                  <% product.categories.forEach(category => { %>
+                        <span class="badge badge-info"><%= category.name %> </span>
+                <% }) %>
+                  <p class="d-flex justify-content-end"> Duración del curso: <%= product.duration %>hs. </p>
+                  <p class="discounted-price">$ <%= product.price %>  / <%= product.discount %>  % OFF</p>
+                  <h1 class="price">$ <%= product.discounted_price %> </h1>
+      
+                  <button type="button" class="btn btn-outline-success mb-2" onclick="buyProduct('<%= product.id %>', '<%= product.name %>', '<%= product.discounted_price %>' )">Comprar curso</button>
+                  <button type="button" class="btn btn-outline-info mb-2" onclick="addToShoppingCart('<%= product.id %>', '<%= product.name %>', '<%= product.discounted_price %>' )">Añadir al carrito</button>
+                  
+                  <% if (userLogueado && user.roles.some(role => role.name == "admin")) { %>
+                    <div class="row d-flex justify-content-end">
+                    <a href="/products/<%= product.id %>/edit" type="button" class="btn btn-outline-info mb-2 mr-2">Editar curso</a>
+                    <form action="/products/<%= product.id %>?_method=DELETE" method="POST"><button type="submit" class=" btn btn-danger mb-2"> Borrar curso</button></form>
+                  </div>
+                  <% } %> 
+                </div>
+              </div>
+          </div>
+       
+        
+        <%- include('partials/footer') %>
+        <%- include("partials/scripts.ejs")  %> 
+            
+    </body>	
+</html>

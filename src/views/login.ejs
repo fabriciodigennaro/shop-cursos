@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs", { title : 'Login'})  %> 
+<body>
+    <%- include("partials/header.ejs")  %>
+    <main class="container">
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="box">
+                <form class="login-form" action="/login" method="POST">
+                    <div class="form-group">
+                      <label for="inputEmail">Email address</label>
+                      <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp"
+                      <% if (typeof email != "undefined") { %>
+                          value="<%= email %> "
+                      <% } %>
+                      >
+                      <small id="emailHelp" class="form-text text-muted"></small>
+                      <% if (typeof errors != "undefined") { %>
+                        <% errors.forEach(error => { %>
+                            <% if (error.param == "email") { %>
+                                <small class="form-text text-danger"
+                                ><%= error.msg %> </small
+                            >
+                            <% } %>
+                        <% }) %>
+                    <% } %>  
+                    <div class="email-error "></div>            
+                    </div>
+                    <div class="form-group">
+                      <label for="inputPassword">Password</label>
+                      <input type="password" class="form-control" name="password" id="inputPassword"
+                     >
+                     <div class="password-error "></div> 
+                    <% if (typeof errors != "undefined") { %>
+                      <% errors.forEach(error => { %>
+                          <% if (error.param == "password") { %>
+                              <small class="form-text text-danger"
+                              ><%= error.msg %> </small
+                          >
+                          <% } %>
+                      <% }) %>
+                      
+                    <% } %>
+                      <div class="form-group form-check">
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            id="exampleCheck1"
+                            name="recordame"
+                        />
+                        <label class="form-check-label" for="exampleCheck1"
+                            >Recordame</label
+                        >
+                    </div> 
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-full">Login</button>
+                    <% if (typeof error != "undefined") { %>
+                        <small class="form-text text-danger"
+                                ><%= error.message %> </small
+                            >
+                    <% } %>
+                  </form>
+            </div>
+        </div>
+    </main>
+ 
+    <%- include("partials/footer.ejs")  %>
+    <%- include("partials/scripts.ejs")  %> 
+    <script src="/js/validation-login.js" defer></script>
+</body>
+</html>

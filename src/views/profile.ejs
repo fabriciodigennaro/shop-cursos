@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs", { title : 'Perfil'})  %> 
+<body>
+    <%- include("partials/header.ejs")  %>
+    
+   <main class="container">
+      <div class="perfil card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4 p-2 d-flex justify-center">
+            <img src="/tmp/uploads/<%= userData.avatar ? userData.avatar : 'no-photo.jpg'%> " class="card-img avatar" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-usuario card-body min-h-70 pl-5 pt-5">
+              <h5 class="card-"><%= userData.name %> <%= userData.lastname %></h5>
+              <p class="card-text">email: <%= userData.email %></p>
+              <p class="card-text">alguna informacion adicional del usuario</p>
+              <a href="https://www.facebook.com/" target="blank" class="card-link">Facebook</a>
+              <a href="https://www.instagram.com/" target="blank" class="card-link">Instagram</a>
+              <div class="mt-5 d-flex">
+                <span class="mr-2">
+                  <a class="btn btn-outline-info" href="/users/<%= userData.id %>/edit">Editar perfil</a>
+                </span>
+                <span>
+                  <form action="/users/<%= userData.id %>?_method=DELETE" method="POST"><button type="submit" class="btn btn-danger">Borrar perfil</button></form>
+                </span>
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+   </main>
+
+   
+   
+    <%- include("partials/footer.ejs")  %>
+    <%- include("partials/scripts.ejs")  %> 
+</body>
+</html>

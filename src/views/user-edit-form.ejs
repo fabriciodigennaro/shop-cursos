@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs", { title : 'Formulario de edición'})  %> 
+<body>
+    <%- include("partials/header.ejs")  %>
+    <main class="container">
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="col-md-6">
+                <form action="/users/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp"
+                        <% if (typeof data != "undefined") { %>
+                          value="<%= data.name %>"
+                        <% } else {%>
+                          value="<%= userData.name %>"
+                        <%}%> 
+                          >
+                       
+                        <% if (typeof errors != 'undefined') { %>
+                          <% for(let error of errors) { %>
+                                <% if (error.param == "name") { %>
+                                  <small class="form-text text-danger">
+                                    <%= error.msg %> 
+                                  </small> 
+                                <% } %>
+                          <% } %>
+                          <% } %> 
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="nameHelp"
+                        <% if (typeof data != "undefined") { %>
+                          value="<%= data.lastname %>"
+                        <% } else {%>
+                          value="<%= userData.lastname %>"
+                        <%}%> 
+                          >
+                       
+                        <% if (typeof errors != 'undefined') { %>
+                          <% for(let error of errors) { %>
+                                <% if (error.param == "lastname") { %>
+                                  <div>
+                                    <small class="form-text text-danger">
+                                      <%= error.msg %> 
+                                    </small>
+                                  </div> 
+                                <% } %>
+                          <% } %>
+                          <% } %> 
+                      </div>
+                    <div class="form-group">
+                      <label for="Email1">Email address</label>
+                      <input type="email" class="form-control" name="email" id="Email1" aria-describedby="emailHelp"
+                      <% if (typeof data != "undefined") { %>
+                        value="<%= data.email %>"
+                      <% } else {%>
+                        value="<%= userData.email %>"
+                      <%}%> 
+                        >
+                     
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "email") { %>
+                                <small class="form-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %>
+                        <% } %>
+                        <% } %> 
+                    </div>
+                    
+                    <div class="input-avatar">
+                      <label for="avatar"></label> 
+                      <input type="file" name="avatar" >
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "avatar") { %>
+                                <small class="orm-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %> 
+                        <% } %>
+                        <% } %>  
+                    </div>  
+                    <div class="boton-register">             
+                      <button type="submit" class="btn btn-dark">Modificar usuario</button>
+                    </div> 
+                  </form>
+                 
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs")  %>
+    <%- include("partials/scripts.ejs")  %> 
+</body>
+</html>

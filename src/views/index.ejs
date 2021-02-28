@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head.ejs", { title : 'Home'})  %>
+<body>
+    <%- include("partials/header.ejs")  %> 
+
+    <main>
+        <div class="parallax" >
+            <h1 >Aprendé cuando y donde quieras!</h1>
+        </div>
+        <div class="text-home products-container">
+            <p>Lo más popular</p>
+        </div>
+        <div class="products-container ml-md-4 d-flex justify-content-center">
+            <% for( let product of products) { %>  
+              <div class="card m-md-2 home-product">
+                <a href="/products/<%= product.id %> "><img src="/img/products/<%= product.images.length ? product.images[0].filename : 'no-image.jpg' %> "  class="card-img prod-img" alt="..."></a>
+                <div class="card-body">
+                  <a href="/products/<%= product.id %> ">
+                    <h5 class="card-title"><%= product.name %> </h5>
+                  </a>
+                  <p class="card-text text-truncate" data-toggle="tooltip" title="<%= product.description %>"><%= product.description %> </p>
+                  <p class="card-text"><a class="card-text text-bold" href="/products/<%= product.id %>" >Ver más</a></p>
+                  <% if (product.discount > 0) { %>
+                    <p class="discounted-price">$ <%= product.price %>  / <%= product.discount %>  % OFF</p>
+                  <% } %>
+                  <h1 class="price">$ <%= product.discounted_price %> </h1>
+      
+                  
+      
+                  <% if (userLogueado && user.roles.some(role => role.name == "admin")) { %>
+                    <div class="row d-flex justify-content-around">
+                    <a href="/products/<%= product.id %>/edit" type="button" class="btn btn-outline-info mb-2">Editar curso</a>
+                    <form action="/products/<%= product.id %>?_method=DELETE" method="POST"><button type="submit" class=" btn btn-danger mb-2"> Borrar curso</button></form>
+                  </div>
+                  <% } %> 
+                </div>
+              </div>
+            <% } %>
+          </div>
+
+          <div class="text-home products-container">
+            <p>Ofertas</p>
+        </div>
+        <div class="products-container ml-md-4 d-flex justify-content-center">
+            <% for( let product of inSaleProducts) { %>  
+              <div class="card m-2 home-product">
+                <a href="/products/<%= product.id %> "><img src="/img/products/<%= product.images.length ? product.images[0].filename : 'no-image.jpg' %> "  class="card-img prod-img m-3" alt="..."></a>
+                <div class="card-body">
+                  <a href="/products/<%= product.id %> ">
+                    <h5 class="card-title"><%= product.name %> </h5>
+                  </a>
+                  <p class="card-text text-truncate" data-toggle="tooltip" title="<%= product.description %>"><%= product.description %> </p>
+                  <p class="card-text"><a class="card-text text-bold" href="/products/<%= product.id %>" >Ver más</a></p>
+                  <% if (product.discount > 0) { %>
+                    <p class="discounted-price">$ <%= product.price %>  / <%= product.discount %>  % OFF</p>
+                  <% } %>
+                  <h1 class="price">$ <%= product.discounted_price %> </h1>
+      
+      
+                  <% if (userLogueado && user.roles.some(role => role.name == "admin")) { %>
+                    <div class="row d-flex justify-content-around">
+                    <a href="/products/<%= product.id %>/edit" type="button" class="btn btn-outline-info mb-2">Editar curso</a>
+                    <form action="/products/<%= product.id %>?_method=DELETE" method="POST"><button type="submit" class=" btn btn-danger mb-2"> Borrar curso</button></form>
+                  </div>
+                  <% } %> 
+                </div>
+              </div>
+            <% } %>
+          </div>
+    </main>
+    
+    
+    
+
+    <%- include("partials/footer.ejs")  %> 
+    <%- include("partials/scripts.ejs")  %> 
+</body>
+</html>

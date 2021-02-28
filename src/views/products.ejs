@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head.ejs", { title : 'Cursos'})  %>
+<body>
+    <%- include("partials/header.ejs")  %> 
+
+    <main>
+      <% if (typeof search != "undefined") { %>
+        <h2 class="display-4">Resultados para: <%= search %> </h2>
+  
+        <% if (products.length == 0) { %>
+          <div class="row">
+            <div class="col-10 offset-1 mt-5">
+              <div class="jumbotron">
+                <h1 class="display-4">No hay publicaciones que coincidan con tu búsqueda!</h1>
+                <p class="lead"><i class="fas fa-angle-right"></i> Revisá la ortografía de la palabra.</p>
+                <p class="lead"><i class="fas fa-angle-right"></i> Utilizá palabras más genéricas o menos palabras.</p>
+                <hr class="my-4">
+                <p>Navegá por nuestros cursos para encontrar el tuyo.</p>
+                <a class="btn btn-outline-info btn-lg" href="/products" role="button">Ir a cursos</a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+       
+      <% } %>
+  
+      <div class="products-container">
+        <% for( let product of products) { %>  
+          <div class="card m-3" style="width: 25rem;">
+            <a href="/products/<%= product.id %> "><img src="/img/products/<%= product.images.length ? product.images[0].filename : 'no-image.jpg' %> "  class="card-img prod-img" alt="..."></a>
+            <div class="card-body">
+              <a href="/products/<%= product.id %> ">
+                <h5 class="card-title"><%= product.name %> </h5>
+              </a>
+              <p class="card-text text-truncate" data-toggle="tooltip" title="<%= product.description %>"><%= product.description %> </p>
+              <p class="discounted-price">$ <%= product.price %>  / <%= product.discount %>  % OFF</p>
+              <h1 class="price">$ <%= product.discounted_price %> </h1>
+  
+              <button type="button" class="btn btn-outline-success mb-2" onclick="buyProduct('<%= product.id %>', '<%= product.name %>', '<%= product.discounted_price %>' )">Comprar curso</button>
+              <button type="button" class="btn btn-outline-info mb-2" onclick="addToShoppingCart('<%= product.id %>', '<%= product.name %>', '<%= product.discounted_price %>' )">Añadir al carrito</button>
+
+              <% if (userLogueado && user.roles.some(role => role.name == "admin")) { %>
+                <div class="row d-flex justify-content-around">
+                <a href="/products/<%= product.id %>/edit" type="button" class="btn btn-outline-info mb-2">Editar curso</a>
+                <form action="/products/<%= product.id %>?_method=DELETE" method="POST"><button type="submit" class=" btn btn-danger mb-2"> Borrar curso</button></form>
+              </div>
+              <% } %> 
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </main>
+
+	<%- include('partials/footer') %>
+  <%- include("partials/scripts.ejs")  %> 
+</body>	
+</html>

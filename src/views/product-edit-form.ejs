@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head.ejs", { title : 'Formulario de edición'})  %>
+<body>
+    <%- include("partials/header.ejs")  %> 
+
+    <main class="container products-wrapper">
+		<div class="row">
+			<div class="new-course col-12">
+				<h2 class="products-title">Modificar curso</h2>
+			</div>
+		</div>
+		<div class="col-12">
+			<form action="/products/<%= product.id %>?_method=PUT" method="POST">
+				<div class="form-row">
+				  <div class="form-group col-md-6">
+					<label for="name">Nombre de Curso</label>
+					<input type="text" class="form-control" name="name" id="name"
+					<% if (typeof data != "undefined") { %>
+						value="<%= data.name %>"
+					  <% } else {%>
+						value="<%= product.name %>"
+					  <%}%> 
+						>
+					 
+					  <% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+							  <% if (error.param == "name") { %>
+								<small class="form-text text-danger">
+								  <%= error.msg %> 
+								</small> 
+							  <% } %>
+						<% } %>
+						<% } %> 
+				  </div>
+
+				  <div class="form-group col-md-6">
+					<label for="mentor">Dictado por:</label>
+					<select 
+							name="mentor"
+							class="form-control"
+							id="mentor"
+						>
+							<% mentors.forEach(mentor => { %>
+								<option value="<%= mentor.id %>"
+									<% if (typeof data != "undefined") { %>
+										<% if (data.mentor == mentor.id) { %>
+											selected
+										<% } %>  
+									  <% } else {%>
+										<% if (product.mentor.id == mentor.id) { %>
+											selected
+										<% } %>  
+									<%}%> 
+			  
+								><%= mentor.name + " " + mentor.lastname %></option>
+							<% }) %>
+						</select>
+				</div>
+				</div>
+				<div class="form-row">	
+				 	<div class="form-group col-md-4">
+						<label for="duration">Duración (en horas)</label>
+						<input type="text" class="form-control" name="duration" id="duration" 
+						<% if (typeof data != "undefined") { %>
+							value="<%= data.duration %>"
+						  <% } else {%>
+							value="<%= product.duration %>"
+						  <%}%> 
+							>
+						 
+						  <% if (typeof errors != 'undefined') { %>
+							<% for(let error of errors) { %>
+								  <% if (error.param == "duration") { %>
+									<small class="form-text text-danger">
+									  <%= error.msg %> 
+									</small> 
+								  <% } %>
+							<% } %>
+							<% } %> 
+					</div>
+									
+					<div class="form-group col-md-4">
+					  <label for="price">Precio</label>
+					  <input type="text" class="form-control" name="price" id="price" 
+					  <% if (typeof data != "undefined") { %>
+						value="<%= data.price %>"
+					  <% } else {%>
+						value="<%= product.price %>"
+					  <%}%> 
+						>
+					 
+					  <% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+							  <% if (error.param == "price") { %>
+								<small class="form-text text-danger">
+								  <%= error.msg %> 
+								</small> 
+							  <% } %>
+						<% } %>
+						<% } %> 
+					</div>
+
+					<div class="form-group col-md-4">
+					  <label for="discount">Descuento</label>
+					  <input type="text" class="form-control" name="discount" id="discount" 
+					  <% if (typeof data != "undefined") { %>
+						value="<%= data.discount %>"
+					  <% } else {%>
+						value="<%= product.discount %>"
+					  <%}%> 
+						>
+					 
+					  <% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+							  <% if (error.param == "discount") { %>
+								<small class="form-text text-danger">
+								  <%= error.msg %> 
+								</small> 
+							  <% } %>
+						<% } %>
+						<% } %> 
+					</div>
+
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="category">Categoria</label>
+						<select name="category" id="category" class="form-control" multiple>
+							<% categories.forEach(category => { %>
+								<option value="<%= category.id %>"
+									<% if (typeof data != "undefined") { %>
+										<% if (data.category == category.id) { %>
+											selected
+										<% } %>  
+									  <% } else {%>
+										<% if (product.categories[0].id == category.id) { %>
+											selected
+										<% } %>  
+									<%}%> 
+									><%= category.name  %></option>
+							<% }) %>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="description">Descripcion del curso</label>
+						<textarea class="form-control" name="description" id="description" rows="10" cols="85"><%= typeof data != 'undefined' ?  data.description : product.description %></textarea>
+					
+						
+						<% if (typeof errors != 'undefined') { %>
+						<% for(let error of errors) { %>
+								<% if (error.param == "name") { %>
+								<small class="form-text text-danger">
+									<%= error.msg %> 
+								</small> 
+								<% } %>
+						<% } %>
+						<% } %> 
+					</div>
+					
+				</div>
+				
+				<button type="submit" class="btn btn-outline-info col-12">Modificar curso</button>
+			  </form>
+		</div>
+
+	</main>
+
+    <%- include('partials/footer') %>
+    <%- include("partials/scripts.ejs")  %> 
+
+</body>	
+</html>

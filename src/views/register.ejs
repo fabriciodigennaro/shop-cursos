@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/head.ejs", { title : 'Formulario de registro'})  %> 
+<body>
+    <%- include("partials/header.ejs")  %>
+    <main class="container ">
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="box">
+                <form id="register-form" action="/register" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp"
+                        <% if (typeof data != "undefined") { %>
+                          value="<%= data.name %>"
+                        <% } %>
+                        >
+                        <div class="name-error "></div> 
+                        <small id="emailHelp" class="form-text text-muted"></small>
+                        <% if (typeof errors != 'undefined') { %>
+                          <% for(let error of errors) { %>
+                                <% if (error.param == "name") { %>
+                                  <small class="orm-text text-danger">
+                                    <%= error.msg %> 
+                                  </small> 
+                                <% } %>
+                          <% } %>
+                          <% } %> 
+                      </div>
+                      <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="nameHelp"
+                        <% if (typeof data != "undefined") { %>
+                          value="<%= data.lastname %>"
+                        <% } %>>
+                        <div class="lastname-error "></div> 
+                        <small id="emailHelp" class="form-text text-muted"></small>
+                        <% if (typeof errors != 'undefined') { %>
+                          <% for(let error of errors) { %>
+                                <% if (error.param == "lastname") { %>
+                                  <small class="orm-text text-danger">
+                                    <%= error.msg %> 
+                                  </small> 
+                                <% } %>
+                          <% } %>
+                          <% } %> 
+                      </div>
+                    <div class="form-group">
+                      <label for="Email1">Email address</label>
+                      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+                      <% if (typeof data != "undefined") { %>
+                        value="<%= data.email %>"
+                      <% } %>
+                      >
+                      <div class="email-error "></div> 
+                      <small id="emailHelp" class="form-text text-muted"></small>
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "email") { %>
+                                <small class="orm-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %>
+                        <% } %>
+                        <% } %> 
+                    </div>
+                    <div class="form-group">
+                      <label for="Password1">Password</label>
+                      <input type="password" class="form-control" name="password" id="password">
+                      <div class="password-error"></div> 
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "password") { %>
+                                <small class="orm-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %>
+                        <% } %>
+                        <% } %> 
+                    </div>
+                    <div class="form-group">
+                      <label for="Password2">Repeat Password</label>
+                      <input type="password" class="form-control" name="repeatPassword" id="rePassword">
+                      <div class="rePassword-error"></div> 
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "repeatPassword") { %>
+                                <small class="orm-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %>
+                        <% } %>
+                        <% } %> 
+                    </div>  
+                    <div class="input-avatar">
+                     
+                      <input type="file" name="avatar" id="avatar" >
+                      <div class="avatar-error "></div> 
+                      <% if (typeof errors != 'undefined') { %>
+                        <% for(let error of errors) { %>
+                              <% if (error.param == "avatar") { %>
+                                <small class="orm-text text-danger">
+                                  <%= error.msg %> 
+                                </small> 
+                              <% } %> 
+                        <% } %>
+                        <% } %>  
+                    </div>  
+
+                    <% if (typeof message != "undefined") { %>
+                      <div>
+                        <small class="form-text text-danger">
+                          <%= message %> 
+                        </small>
+                      </div> 
+                    <% } %>
+                    
+                    
+                    <div class="boton-register ">             
+                      <button type="submit" class="btn btn-outline-success btn-full">Register</button>
+                    </div> 
+                  </form>
+                 
+            </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs")  %>
+    <%- include("partials/scripts.ejs")  %> 
+    <script src="/js/validation-register.js"></script>
+</body>
+</html>
